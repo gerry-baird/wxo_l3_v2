@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException, Request
 from starlette import status
 from pymilvus import MilvusClient
 from pymilvus import model
+from data.offers_data import offers
 
 offer_router = APIRouter()
 
@@ -17,19 +18,11 @@ client.create_collection(
 # This will download a small embedding model "paraphrase-albert-small-v2" (~50MB).
 embedding_fn = model.DefaultEmbeddingFunction()
 
-# Text strings to search from.
-docs = [
-    "New travel insurance customers can receive four complimentary passes to airport lounges when they upgrade their medical cover.",
-    "Customers renewing their vehicle insurance will receive free breakdown cover.",
-    "Customers renewing their travel insurance are eligible for a 5% discount.",
-    "We are currently offering discounted gym memberships for customers renewing their health insurance"
-    "We are offering free retirement planning consultations for all existing travel insurance customers aged over 30 with a qualified financial planner."
-]
 
-vectors = embedding_fn.encode_documents(docs)
+vectors = embedding_fn.encode_documents(offers)
 
 data = [
-    {"id": i, "vector": vectors[i], "text": docs[i], "subject": "special offers"}
+    {"id": i, "vector": vectors[i], "text": offers[i], "subject": "special offers"}
     for i in range(len(vectors))
 ]
 res = client.insert(collection_name="offers_collection", data=data)
