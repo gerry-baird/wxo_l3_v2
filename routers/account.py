@@ -12,7 +12,7 @@ account_router = APIRouter()
          response_description="Account details",
          tags=["Account"]
          )
-async def get_policy(account_id: str) -> Account:
+async def get_account(account_id: str) -> Account:
     account_list = create_accounts()
 
     for acc in account_list:

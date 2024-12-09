@@ -1,0 +1,298 @@
+openapi: 3.0.0
+info:
+  title: WxO L3 Services v2
+  description: WxO L3 Services v2
+  version: 0.1.0
+servers:
+  - url: https://wxo-l3-v2.onrender.com
+paths:
+  /query:
+    get:
+      tags:
+        - Customers
+      summary: Get a list of customers with recent life events
+      description: Get a list of customers with recent life events
+      operationId: customers_with_life_events
+      parameters:
+        - name: q
+          in: query
+          required: false
+          schema:
+            type: string
+            default: q=select+Id,AccountId,Name,Email,Recent_Change__c,Child_Age__c,Child_Covered__c,Child_Name__c+from+contact+where+AccountId='001Hs00002ubq6YIAQ'
+            title: Q
+      responses:
+        '200':
+          description: Customers with recent life events
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer_List'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - HTTPBasic: []
+  /policy/{policy_id}:
+    get:
+      tags:
+        - Policy
+      summary: Get the details of a policy
+      description: Get the details of a policy
+      operationId: get_policy_by_id
+      parameters:
+        - name: policy_id
+          in: path
+          required: true
+          schema:
+            type: string
+            title: Policy Id
+      responses:
+        '200':
+          description: Policy details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - HTTPBasic: []
+  /account/{account_id}/policies:
+    get:
+      tags:
+        - Policy
+      summary: Get policies for a specific account
+      description: Get policies for a specific account
+      operationId: find_account_policies
+      parameters:
+        - name: account_id
+          in: path
+          required: true
+          schema:
+            type: string
+            title: Account Id
+      responses:
+        '200':
+          description: Account policies
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy_List'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - HTTPBasic: []
+  /account/{account_id}:
+    get:
+      tags:
+        - Account
+      summary: Get the details of an account
+      description: Get the details of an account
+      operationId: get_account
+      parameters:
+        - name: account_id
+          in: path
+          required: true
+          schema:
+            type: string
+            title: Account Id
+      responses:
+        '200':
+          description: Account details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - HTTPBasic: []
+components:
+  schemas:
+    Account:
+      properties:
+        id:
+          type: string
+          title: Id
+        email:
+          type: string
+          title: Email
+        name:
+          type: string
+          title: Name
+        dob:
+          type: string
+          format: date
+          title: Dob
+        addr1:
+          type: string
+          title: Addr1
+        addr2:
+          type: string
+          title: Addr2
+        city:
+          type: string
+          title: City
+      type: object
+      required:
+        - id
+        - email
+        - name
+        - dob
+        - addr1
+        - addr2
+        - city
+      title: Account
+    Customer:
+      properties:
+        name:
+          type: string
+          title: Name
+        age:
+          type: integer
+          title: Age
+        id:
+          type: string
+          title: Id
+        email:
+          type: string
+          title: Email
+        recent_change:
+          type: string
+          title: Recent Change
+      type: object
+      required:
+        - name
+        - age
+        - id
+        - email
+        - recent_change
+      title: Customer
+    Customer_List:
+      properties:
+        totalSize:
+          type: integer
+          title: Totalsize
+        records:
+          items:
+            $ref: '#/components/schemas/Customer'
+          type: array
+          title: Records
+      type: object
+      required:
+        - totalSize
+        - records
+      title: Customer_List
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Message:
+      properties:
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+        - message
+      title: Message
+    Policy:
+      properties:
+        id:
+          type: string
+          title: Id
+        account_id:
+          type: string
+          title: Account Id
+        product:
+          type: string
+          title: Product
+        startDate:
+          type: string
+          format: date
+          title: Startdate
+        endDate:
+          type: string
+          format: date
+          title: Enddate
+        provider:
+          type: string
+          title: Provider
+        premium:
+          type: number
+          title: Premium
+        notes:
+          type: string
+          title: Notes
+      type: object
+      required:
+        - id
+        - account_id
+        - product
+        - startDate
+        - endDate
+        - provider
+        - premium
+        - notes
+      title: Policy
+    Policy_List:
+      properties:
+        totalSize:
+          type: integer
+          title: Totalsize
+        records:
+          items:
+            $ref: '#/components/schemas/Policy'
+          type: array
+          title: Records
+      type: object
+      required:
+        - totalSize
+        - records
+      title: Policy_List
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+              - type: string
+              - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+        - loc
+        - msg
+        - type
+      title: ValidationError
+  securitySchemes:
+    HTTPBasic:
+      type: http
+      scheme: basic
