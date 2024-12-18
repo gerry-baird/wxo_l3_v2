@@ -6,7 +6,7 @@ from models.Account import Account
 
 account_router = APIRouter()
 
-@account_router.get("/account/{account_id}", status_code=status.HTTP_200_OK,
+@account_router.get("/account", status_code=status.HTTP_200_OK,
          summary='Get the details of an account',
          description='Get the details of an account',
          response_description="Account details",
