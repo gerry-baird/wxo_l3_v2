@@ -15,7 +15,7 @@ policy_router = APIRouter()
 async def get_policy(policy_id: str) -> Policy:
     policy_list = create_policies()
 
-    for p in policy_list.records:
+    for p in policy_list:
         if p.id == policy_id:
             return p
     raise HTTPException(status_code=404, detail='Item not found')

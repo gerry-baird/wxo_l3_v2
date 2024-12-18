@@ -294,7 +294,6 @@ components:
           title: Id
         startDate:
           type: string
-          format: date
           title: Startdate
         status:
           type: string
