@@ -17,8 +17,10 @@ security = HTTPBasic()
          summary='Ping',
          description='Ping',
          )
-async def ping(credentials: HTTPBasicCredentials = Depends(security)) -> Message:
-    return {"message": "WxO L3 V2 services are alive"}
+def ping(credentials: HTTPBasicCredentials = Depends(security)) -> Message:
+
+    m = Message(message="WxO L3 V2 services are alive")
+    return m
 
 
 

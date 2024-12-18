@@ -4,6 +4,7 @@ from datetime import date
 def create_policies():
     p1 = Policy(id="1",
                 account_id="I19273",
+                status="Closed",
                 product="Travel",
                 startDate = date(2023,4,17),
                 endDate = date(2024,4,17),
@@ -13,6 +14,7 @@ def create_policies():
                 )
     p2 = Policy(id="2",
                 account_id="I19273",
+                status="Active",
                 product="Home",
                 startDate=date(2022, 1, 17),
                 endDate=date(2025, 1, 17),
@@ -24,8 +26,4 @@ def create_policies():
     p_list.append(p1)
     p_list.append(p2)
 
-    policy_list = Policy_List(
-        totalSize=2,
-        records=p_list
-    )
-    return policy_list
+    return p_list

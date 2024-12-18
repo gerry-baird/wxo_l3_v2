@@ -5,7 +5,7 @@ def create_accounts():
     a1 = Account(
         id = "I19273",
         email = "janetthomas@gmail.com",
-        name = "Janey Thomas",
+        name = "Janet Thomas",
         dob = date(1961,4,17),
         addr1 = "44 North St",
         addr2 = "Indian Hills",

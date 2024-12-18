@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException
 from starlette import status
-
+import json
 from data.policy_data import create_policies
-from models.Policy import Policy, Policy_List
+from models.Policy import Policy, Policy_List, Policy_Summary
 
 policy_router = APIRouter()
 
@@ -30,9 +30,14 @@ async def find_account_policy(account_id: str) -> Policy_List:
     policy_list = create_policies()
 
     results = list()
-    for p in policy_list.records:
+    for p in policy_list:
         if p.account_id == account_id:
-            results.append(p)
+            id = p.id
+            startDate = p.startDate
+            status = p.status
+            product = p.product
+            summary = Policy_Summary(id=id, startDate=startDate, status=status, product=product)
+            results.append(summary)
 
     result_count = len(results)
 
@@ -42,6 +47,9 @@ async def find_account_policy(account_id: str) -> Policy_List:
     )
 
     if result_count > 0:
+        print("Response data")
+        print(result_list.model_dump())
+
         return result_list
     else:
         raise HTTPException(status_code=404, detail='Item not found')

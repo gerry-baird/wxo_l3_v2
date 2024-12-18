@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
-  title: WxO L3 Services v2
-  description: WxO L3 Services v2
+  title: WxO L3 v2
+  description: WxO L3 v2
   version: 0.1.0
 servers:
   - url: https://wxo-l3-v2.1d13bpwyy9q7.us-east.codeengine.appdomain.cloud
@@ -34,15 +34,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-      security:
-        - HTTPBasic: []
   /policy/{policy_id}:
     get:
       tags:
         - Policy
       summary: Get the details of a policy
       description: Get the details of a policy
-      operationId: get_policy_by_id
+      operationId: get_policy
       parameters:
         - name: policy_id
           in: path
@@ -63,15 +61,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-      security:
-        - HTTPBasic: []
   /account/{account_id}/policies:
     get:
       tags:
         - Policy
       summary: Get policies for a specific account
       description: Get policies for a specific account
-      operationId: find_account_policies
+      operationId: find_account_policy
       parameters:
         - name: account_id
           in: path
@@ -92,8 +88,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-      security:
-        - HTTPBasic: []
   /account:
     get:
       tags:
@@ -121,8 +115,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-      security:
-        - HTTPBasic: []
+  /offers:
+    post:
+      summary: Search Offers
+      operationId: search_offers
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
   /ping:
     get:
       summary: Ping
@@ -277,7 +279,7 @@ components:
           title: Totalsize
         records:
           items:
-            $ref: '#/components/schemas/Policy'
+            $ref: '#/components/schemas/Policy_Summary'
           type: array
           title: Records
       type: object
@@ -285,6 +287,28 @@ components:
         - totalSize
         - records
       title: Policy_List
+    Policy_Summary:
+      properties:
+        id:
+          type: string
+          title: Id
+        startDate:
+          type: string
+          format: date
+          title: Startdate
+        status:
+          type: string
+          title: Status
+        product:
+          type: string
+          title: Product
+      type: object
+      required:
+        - id
+        - startDate
+        - status
+        - product
+      title: Policy_Summary
     ValidationError:
       properties:
         loc:

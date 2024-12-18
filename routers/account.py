@@ -18,4 +18,4 @@ async def get_account(account_id: str) -> Account:
     for acc in account_list:
         if acc.id == account_id:
             return acc
-    raise HTTPException(status_code=404, detail='Accont not found')
+    raise HTTPException(status_code=404, detail='Account not found')
