@@ -2,13 +2,14 @@ from fastapi import FastAPI, Depends
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.routing import APIRoute
 from models.Message import Message
-from routers import query, policy, account, offers
+from routers import query, policy, account, offers, loan
 
 app = FastAPI()
 app.include_router(query.query_router)
 app.include_router(policy.policy_router)
 app.include_router(account.account_router)
 app.include_router(offers.offer_router)
+app.include_router(loan.loan_router)
 
 security = HTTPBasic()
 
