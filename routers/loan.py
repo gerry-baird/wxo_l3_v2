@@ -16,7 +16,7 @@ def loan(loan_request: LoanRequest)->LoanResponse:
     monthlyPayment = loan_calc(loan_request.loan, loan_request.rate)
     totalPayment = monthlyPayment * 12
 
-    lr = LoanResponse(monthly=monthlyPayment, total=totalPayment)
+    lr = LoanResponse(monthly=round(monthlyPayment,2), total=round(totalPayment,2))
 
     return lr
 
