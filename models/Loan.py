@@ -1,8 +1,8 @@
 from pydantic import BaseModel
-class LoanRequest(BaseModel):
-    loan: float
+class CreditRequest(BaseModel):
+    credit: float
     rate: float
 
-class LoanResponse(BaseModel):
+class CreditResponse(BaseModel):
     monthly: float
     total: float
