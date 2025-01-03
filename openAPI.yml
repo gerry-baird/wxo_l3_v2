@@ -139,15 +139,15 @@ paths:
                 $ref: '#/components/schemas/Message'
       security:
         - HTTPBasic: []
-  /loan:
+  /credit:
     post:
-      summary: Loan
-      operationId: loan
+      summary: Credit calculator
+      operationId: credit
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/LoanRequest'
+              $ref: '#/components/schemas/CreditRequest'
         required: true
       responses:
         '200':
@@ -155,7 +155,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LoanResponse'
+                $ref: '#/components/schemas/CreditResponse'
         '422':
           description: Validation Error
           content:
@@ -352,20 +352,20 @@ components:
         - msg
         - type
       title: ValidationError
-    LoanRequest:
+    CreditRequest:
       properties:
-        loan:
+        credit:
           type: number
-          title: Loan
+          title: Credit
         rate:
           type: number
           title: Rate
       type: object
       required:
-        - loan
+        - credit
         - rate
-      title: LoanRequest
-    LoanResponse:
+      title: CreditRequest
+    CreditResponse:
       properties:
         monthly:
           type: number
@@ -377,7 +377,7 @@ components:
       required:
         - monthly
         - total
-      title: LoanResponse
+      title: CreditResponse
   securitySchemes:
     HTTPBasic:
       type: http
