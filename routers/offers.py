@@ -33,7 +33,7 @@ def run_search(query, metadata):
     res = client.search(
         collection_name="offers_collection",  # target collection
         data=query_vectors,  # query vectors
-        limit=5,  # number of returned entities
+        limit=10,  # number of returned entities
         output_fields=["text", "subject"],  # specifies fields to be returned
     )
 
