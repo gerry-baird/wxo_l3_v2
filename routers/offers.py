@@ -18,7 +18,6 @@ client.create_collection(
 # This will download a small embedding model "paraphrase-albert-small-v2" (~50MB).
 embedding_fn = model.DefaultEmbeddingFunction()
 
-
 vectors = embedding_fn.encode_documents(offers)
 
 data = [
@@ -33,7 +32,7 @@ def run_search(query, metadata):
     res = client.search(
         collection_name="offers_collection",  # target collection
         data=query_vectors,  # query vectors
-        limit=10,  # number of returned entities
+        limit=5,  # number of returned entities
         output_fields=["text", "subject"],  # specifies fields to be returned
     )
 
