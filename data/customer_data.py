@@ -5,7 +5,7 @@ def create_customers():
         name="Janet Thomas",
         age=64,
         id="I19273",
-        email="janetthomas@gmail.com",
+        email="janetthomas@testmail.com",
         recent_change="Recently turned 64",
     )
 
@@ -21,7 +21,7 @@ def create_customers():
         name="Oliver Paul",
         age=42,
         id="I61492",
-        email="oliverpaul@gmail.com",
+        email="oliverpaul@testmail.com",
         recent_change="Purchased new vehicle",
     )
 
