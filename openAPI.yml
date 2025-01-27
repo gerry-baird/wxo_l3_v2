@@ -34,90 +34,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
-  /policy/{policy_id}:
-    get:
-      tags:
-        - Policy
-      summary: Get the details of a policy
-      description: Get the details of a policy
-      operationId: get_policy
-      parameters:
-        - name: policy_id
-          in: path
-          required: true
-          schema:
-            type: string
-            title: Policy Id
-      responses:
-        '200':
-          description: Policy details
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Policy'
-        '422':
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-  /account/{account_id}/policies:
-    get:
-      tags:
-        - Policy
-      summary: Get policies for a specific account
-      description: Get policies for a specific account
-      operationId: find_account_policy
-      parameters:
-        - name: account_id
-          in: path
-          required: true
-          schema:
-            type: string
-            title: Account Id
-      responses:
-        '200':
-          description: Account policies
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Policy_List'
-        '422':
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-  /account:
-    get:
-      tags:
-        - Account
-      summary: Get the details of an account
-      description: Get the details of an account
-      operationId: get_account
-      parameters:
-        - name: account_id
-          in: query
-          required: true
-          schema:
-            type: string
-            title: Account Id
-      responses:
-        '200':
-          description: Account details
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Account'
-        '422':
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
   /offers:
     post:
       summary: Search Offers
+      description: Search for promotional offers.
       operationId: search_offers
       responses:
         '200':
@@ -125,23 +45,10 @@ paths:
           content:
             application/json:
               schema: {}
-  /ping:
-    get:
-      summary: Ping
-      description: Ping
-      operationId: ping
-      responses:
-        '200':
-          description: Successful Response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Message'
-      security:
-        - HTTPBasic: []
   /credit:
     post:
       summary: Credit calculator
+      description: Calculates a monthly payment schedule.
       operationId: credit
       requestBody:
         content:
@@ -164,40 +71,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    Account:
-      properties:
-        id:
-          type: string
-          title: Id
-        email:
-          type: string
-          title: Email
-        name:
-          type: string
-          title: Name
-        dob:
-          type: string
-          format: date
-          title: Dob
-        addr1:
-          type: string
-          title: Addr1
-        addr2:
-          type: string
-          title: Addr2
-        city:
-          type: string
-          title: City
-      type: object
-      required:
-        - id
-        - email
-        - name
-        - dob
-        - addr1
-        - addr2
-        - city
-      title: Account
     Customer:
       properties:
         name:
@@ -206,9 +79,11 @@ components:
         age:
           type: integer
           title: Age
+          x-ibm-show: false
         id:
           type: string
           title: Id
+          x-ibm-show: false
         email:
           type: string
           title: Email
@@ -256,81 +131,6 @@ components:
       required:
         - message
       title: Message
-    Policy:
-      properties:
-        id:
-          type: string
-          title: Id
-        account_id:
-          type: string
-          title: Account Id
-        product:
-          type: string
-          title: Product
-        startDate:
-          type: string
-          format: date
-          title: Startdate
-        endDate:
-          type: string
-          format: date
-          title: Enddate
-        provider:
-          type: string
-          title: Provider
-        premium:
-          type: number
-          title: Premium
-        notes:
-          type: string
-          title: Notes
-      type: object
-      required:
-        - id
-        - account_id
-        - product
-        - startDate
-        - endDate
-        - provider
-        - premium
-        - notes
-      title: Policy
-    Policy_List:
-      properties:
-        totalSize:
-          type: integer
-          title: Totalsize
-        records:
-          items:
-            $ref: '#/components/schemas/Policy_Summary'
-          type: array
-          title: Records
-      type: object
-      required:
-        - totalSize
-        - records
-      title: Policy_List
-    Policy_Summary:
-      properties:
-        id:
-          type: string
-          title: Id
-        startDate:
-          type: string
-          title: Startdate
-        status:
-          type: string
-          title: Status
-        product:
-          type: string
-          title: Product
-      type: object
-      required:
-        - id
-        - startDate
-        - status
-        - product
-      title: Policy_Summary
     ValidationError:
       properties:
         loc:

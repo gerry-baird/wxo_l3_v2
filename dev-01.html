@@ -53,21 +53,21 @@
 <div id="welcome-message">Welcome to the watsonx Orchestrate Level 3 Demo</div>
 <div id="arrow">⬇️</div>
 <script>
-    window.wxOConfiguration = {
-        clientVersion: "latest",
-        orchestrationID: "0bdd0a99-9dcd-4e0b-8c70-86f884bd2ba9",
-        hostUrl: "https://dl.watson-orchestrate.ibm.com",
-        rootElementId: "root",
-        // token: "<CLIENT_JWT_GOES_HERE>"
-    };
-    setTimeout(function () {
-        const script = document.createElement('script');
-        script.src = `${window.wxOConfiguration.hostUrl}/webclient/wxoLoader.js`;
-        script.addEventListener('load', function () {
-            wxoLoader.init();
-        });
-        document.head.appendChild(script);
-    }, 0);
+  window.wxOConfiguration = {
+    clientVersion: "latest",
+    orchestrationID: "750e9546-92b1-467d-b36f-028d92ccdceb",
+    hostUrl: "https://dl.watson-orchestrate.ibm.com",
+    rootElementId: "root",
+    // token: "<CLIENT_JWT_GOES_HERE>"
+  };
+  setTimeout(function () {
+    const script = document.createElement('script');
+    script.src = `${window.wxOConfiguration.hostUrl}/webclient/wxoLoader.js`;
+    script.addEventListener('load', function () {
+      wxoLoader.init();
+    });
+    document.head.appendChild(script);
+  }, 0);
 </script>
 </body>
 </html>
