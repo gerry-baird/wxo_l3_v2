@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 3 Demo</title>
+    <style>
+        body {
+            font-family: 'IBM Plex Sans Thin';
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #welcome-message {
+            font-family: 'Arial', sans-serif;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            padding: 20px;
+            font-size: 40px;
+        }
+
+        #arrow {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            font-size: 40px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-100px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="root"></div>
+<div id="welcome-message">Welcome to the watsonx Orchestrate Level 3 Demo</div>
+<div id="arrow">⬇️</div>
+<script>
+    window.wxOConfiguration = {
+        clientVersion: "latest",
+        orchestrationID: "0647c413-0932-4328-b518-4bbba79254b4",
+        hostUrl: "https://dl.watson-orchestrate.ibm.com",
+        rootElementId: "root",
+        // token: "<CLIENT_JWT_GOES_HERE>"
+    };
+    setTimeout(function () {
+        const script = document.createElement('script');
+        script.src = `${window.wxOConfiguration.hostUrl}/webclient/wxoLoader.js`;
+        script.addEventListener('load', function () {
+            wxoLoader.init();
+        });
+        document.head.appendChild(script);
+    }, 0);
+</script>
+</body>
+</html>

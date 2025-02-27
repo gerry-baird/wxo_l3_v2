@@ -10,7 +10,7 @@ query_router = APIRouter()
          response_description="Customers with recent life events",
          tags=["Customers"]
          )
-def customers_with_life_events(q: str="q=select+Id,AccountId,Name,Email,Recent_Change__c,Child_Age__c,Child_Covered__c,Child_Name__c+from+contact+where+AccountId='001Hs00002ubq6YIAQ'") -> Customer_List:
+def customers_with_life_events(q: str="not used") -> Customer_List:
     customer_list = create_customers()
     return customer_list
 
